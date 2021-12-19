@@ -1,0 +1,80 @@
+<html>
+<head>
+  <style>
+    .wrapper {
+      width: 100vw;
+    }
+    .slide-collection {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .slide {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #ccc;
+      border-radius: 16px;
+      padding: 10px;
+      margin: 5px;
+      max-width: 305px;
+    }
+    .slide-wrapper:focus .display {
+      max-height: 200px;
+      transition: max-height 0.4s ease-in;
+    }
+    .slide-wrapper:focus {
+      height: 1000px;
+      transition: max-height 0.4s ease-in;
+    }
+    .slide-wrapper {
+      /* position: relative; */
+      text-decoration: none;
+      color: inherit;
+    }
+    .display {
+      position: absolute;
+      background: #2a7d38;
+      right: 0;
+      width: 90vw;
+      margin: 0 3vw;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.15s ease-in;
+    }
+    .slide-image {
+      border-radius: 16px;
+    }
+  </style>
+  <script>
+    (function () {
+      document.body = document.createElement("body");
+      const numberOfslides = 20
+      function randomImage (width, chosenImg) {
+        const height = Math.floor((width / 1.6) / 10) * 10
+        return `https://picsum.photos/seed/${chosenImg}/${width}/${height}`
+      }
+      const slides = Array(numberOfslides).fill('').map((ignore, index) => {
+        return {
+          slideName: `Name-${index}`,
+          slideImage: randomImage(300, `Card Number-${index}`)
+        }
+      })
+      document.body.innerHTML = `
+        <div class="wrapper">
+          <div class="slide-collection">
+          ${slides.map(slide => (`
+            <a href="javascript:void(0)" class="slide-wrapper">
+              <div class="slide">
+                <h3 class="slide-name">${slide.slideName}</h3>
+                <img class="slide-image" src="${slide.slideImage}"/>
+              </div>
+              <div class="display">${slide.slideName} description</div>
+            </a>
+          `)).join('')}
+          </div>
+        </div>
+      `;
+    })()
+  </script>
+</head>
+</html>
