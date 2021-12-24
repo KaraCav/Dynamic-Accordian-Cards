@@ -1,51 +1,90 @@
 <html>
 <head>
-  <style>
-    .wrapper {
-      width: 100vw;
-    }
-    .slide-collection {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .slide {
-      display: flex;
-      flex-direction: column;
-      border: 1px solid #ccc;
-      border-radius: 16px;
-      padding: 10px;
-      margin: 5px;
-      max-width: 305px;
-    }
-    .slide-wrapper:focus .display {
-      max-height: 200px;
-      transition: max-height 0.4s ease-in;
-    }
-    .slide-wrapper:focus {
-      height: 1000px;
-      transition: max-height 0.4s ease-in;
-    }
-    .slide-wrapper {
-      /* position: relative; */
-      text-decoration: none;
-      color: inherit;
-    }
-    .display {
-      position: absolute;
-      background: #2a7d38;
-      right: 0;
-      width: 90vw;
-      margin: 0 3vw;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.15s ease-in;
-    }
-    .slide-image {
-      border-radius: 16px;
-    }
-  </style>
-  <script>
+    <style>
+        .wrapper {
+            width: 100vw;
+        }
+
+        .slide-collection {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .slide {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #ccc;
+            border-radius: 16px;
+            padding: 10px;
+            margin: 5px;
+            max-width: 305px;
+        }
+
+        .slide-wrapper:focus {
+            height: 500px;
+            transition: max-height 0.4s ease-in;
+        }
+
+        .slide-wrapper {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .slide-image {
+            border-radius: 16px;
+        }
+
+        /* This description slide is connected to each main slide, not separate
+       When clicked, 'display class' is added to show lower slide portion */
+        .display {
+            position: absolute;
+            right: 0;
+            width: 90vw;
+            margin: 0 2vw;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.1s ease-in;
+        }
+        .slide-wrapper:focus .display {
+            max-height: 200px;
+            transition: max-height 0.4s ease-in;
+            border: 1px solid #344e38;
+            border-radius: 16px;
+            padding: 1vw;
+            display: flex;
+        }
+        .flex-horizontal {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            width: 70%;
+        }
+        .flex-horizontal .small-img {
+            max-height: 25vh;
+        }
+        .flex-horizontal h4 {
+            color: green;
+        }
+        .flex-vertical {
+            border: 1px solid #344e38;
+            border-radius: 16px;
+            text-align: center;
+            display: flex;
+            height: 80%;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+        .padding-1 {
+            padding: 1em;
+        }
+        .width-30 {
+            width: 30%;
+        }
+
+    </style>
+
+ <script>
     (function () {
       document.body = document.createElement("body");
       const numberOfslides = 20
@@ -64,11 +103,34 @@
           <div class="slide-collection">
           ${slides.map(slide => (`
             <a href="javascript:void(0)" class="slide-wrapper">
+
               <div class="slide">
                 <h3 class="slide-name">${slide.slideName}</h3>
                 <img class="slide-image" src="${slide.slideImage}"/>
               </div>
-              <div class="display">${slide.slideName} description</div>
+
+              <div class="display">
+                <div class="flex-horizontal">
+                  <img class="small-img" src="${slide.slideImage}"/>
+                  <div class="padding-1">
+                    <h4>${slide.slideName} description</h4>
+                    <div>Long description of the slide here with all the 
+                        details needed so we know this looks good. Want to 
+                        make sure there's no weird formatting, that it's pretty.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="width-30">
+                    <div class="flex-vertical padding-1">
+                        <div>Dropdown here</div>
+                        <div>Number selector</div>
+                        <button>Add to Cart</button>
+                        <button>Go to Checkout</button>
+                    </div>
+                </div>
+              </div>
+
             </a>
           `)).join('')}
           </div>
